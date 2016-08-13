@@ -37,13 +37,14 @@ def filterRestaurants(UserLatitude, UserLongitude, radius, key):
             distance = 6367 * distance
             if distance < radius:
                 information = dict()
+                information.update({'rest_id': int((restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['id']) })
                 information.update({'distance': distance})
                 information.update({'rating': float(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['user_rating']['aggregate_rating'])})
-                information.update({'cuisines':str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['cuisines']).split(',')})
+                information.update({'cuisines': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['cuisines']).split(',')})
                 information.update({'price_range': float(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['price_range'])})
-                information.update({'image_url':str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['thumb'])})
-                information.update({'zomato_url':str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['url'])})
-                information.update({'address':str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['location']['address'])})
+                information.update({'image_url': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['thumb'])})
+                information.update({'zomato_url': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['url'])})
+                information.update({'address': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['location']['address'])})
                 test_arr = []
                 for item in information['cuisines']:
                     for cuisine in arr:
