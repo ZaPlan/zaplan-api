@@ -37,7 +37,7 @@ def filterRestaurants(UserLatitude, UserLongitude, radius, key):
             distance = 6367 * distance
             if distance < radius:
                 information = dict()
-                information.update({'rest_id': int((restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['id']) })
+                information.update({'rest_id': int(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['id'])})
                 information.update({'distance': distance})
                 information.update({'rating': float(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['user_rating']['aggregate_rating'])})
                 information.update({'cuisines': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['cuisines']).split(',')})
@@ -48,7 +48,7 @@ def filterRestaurants(UserLatitude, UserLongitude, radius, key):
                 test_arr = []
                 for item in information['cuisines']:
                     for cuisine in arr:
-                        if item == cuisine:
+                        if item == cuisine or item == ' '+cuisine:
                             test_arr.append(1)
                         else:
                             test_arr.append(0)
