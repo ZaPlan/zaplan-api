@@ -20,20 +20,30 @@ def lets_do_this(lat, lng, budget, radius, start_time, end_time):
 	max_time = ['movie', 'restaurant', 'night_club', 'shopping']
 
 	act = ''
+	prev_act = ''
 	flag = False
 
 	if start_time in m:
 		flag = True
 		morn_act = []
-		if (budget < 700):
+		if budget < 700:
 			morn.remove('movie')
 		act = random.choice(morn)
 		data = text_search_place.get_stuff(lat, lng, radius, act)
 		data.update({'time', '9000 - 1100'})
+		if act == 'movie':
+			data.update({'time', '9300 - 1200'})
 		curr_act.update({act : data})
 
 	if flag or start_time in aft:
-		if act == '':
+		prev_act = act
+		if prev_act == 'movie':
+			aft.remove ('book_store')
+		act = random.choice(aft)
+		if (act == 'restaurant'):
+			data = text_search_place.get_stuff(lat, lng, radius, act)
+
+
 
 
 
