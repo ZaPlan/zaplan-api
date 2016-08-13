@@ -21,5 +21,3 @@ def get_movies_by_city(city):
 		movie_set.update({name : info})
 	a = json.dumps(movie_set)
 	print
-
-get_movies_by_city('surat')

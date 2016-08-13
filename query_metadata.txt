@@ -1,0 +1,32 @@
+Activities:
+
+
+* movie_theater, entertainment/movies.py
+
+* restaurant
+
+* shopping_mall
+
+* zoo
+
+* amusement_park
+
+* cafe
+
+* book_store
+
+* park
+
+* bowling_alley
+
+* 'swimming in {city}'
+
+* museum
+
+* campground
+
+* picnic in {city}
+
+* night-club
+
+
