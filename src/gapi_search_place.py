@@ -24,16 +24,14 @@ def get_stuff(latitude, longitude, radius, place_type):
 		place_lat = results['geometry'].get('location').get('lat')
 		place_lng = results['geometry'].get('location').get('lng')
 		place_details.update({'location' : str(place_lat)+','+str(place_lng)})
-
 		places_result.update({place_name : place_details})
-	return places_result
+		
+	final_dic = ({place_type : places_result})
+	return final_dic
 
-latitude = '12.844413099999999'
-longitude = '80.1524191' 
-place_type = 'museum'
-radius = 100000 #km
-print get_stuff(latitude, longitude, radius, place_type)
+# latitude = '12.844413099999999'
+# longitude = '80.1524191' 
+# place_type = 'museum'
+# radius = 100000 #km
+# print get_stuff(latitude, longitude, radius, place_type)
 
-
-# link = 'https://lh3.googleusercontent.com/-pY3jskAvMFA/V2u3KjsK_jI/AAAAAAAAK8A/_d1HN4F8rpELMeiqV2yimBuvJTmDCq3FwCLIB/s1600-w400/'
-# data =  urllib.urlopen(link).read()

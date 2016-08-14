@@ -3,7 +3,11 @@ import math
 from pprint import pprint
 import json
 
-def filterRestaurants(UserLatitude, UserLongitude, radius, key):
+key = '650e6f7fd00355a27cdb4b973d14d694'
+
+def filterRestaurants(UserLatitude, UserLongitude, radius):
+    UserLatitude = float(UserLatitude)
+    UserLongitude = float(UserLongitude)
     baseUrl = "https://developers.zomato.com/api/v2.1/"
     locationUrl = baseUrl + "cities?lat="+str(UserLatitude)+"&lon="+str(UserLongitude)
     header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user_key": key}
@@ -45,16 +49,26 @@ def filterRestaurants(UserLatitude, UserLongitude, radius, key):
                 information.update({'image_url': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['thumb'])})
                 information.update({'zomato_url': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['url'])})
                 information.update({'address': str(restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['location']['address'])})
-                test_arr = []
+                test_arr = [0 for a in range(0,len(arr))]
                 for item in information['cuisines']:
-                    for cuisine in arr:
-                        if item == cuisine or item == ' '+cuisine:
-                            test_arr.append(1)
-                        else:
-                            test_arr.append(0)
+                    for i in range(0, len(arr)):
+                        if item == arr[i] or item == ' '+arr[i]:
+                            test_arr[i] = 1
                 information.update({'cuisinesML': test_arr})
                 name = restaurants['nearby_restaurants'][str(restaurant)]['restaurant']['name']
                 filtered.update({str(name): information})
         
         json.dumps(filtered)
         return filtered
+"""
+x = filterRestaurants(28, 77, 50, "650e6f7fd00355a27cdb4b973d14d694")
+luck = [0,1,0,1,0,1,0,1,1]
+p = 0
+for names in x:
+    x[str(names)].update({'userPreference': luck[p]})
+    p = p + 1
+y = ['lolol', 500, 4000, 20000]
+z = [0 for a in range(0,350)]
+y = y + z
+l = Recommendor.recommend(y, x)
+"""

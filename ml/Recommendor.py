@@ -3,10 +3,27 @@ import random
 from sklearn import neighbors, cross_validation
 
 
+def JsonToArr(sample, hasClass = False):
+    array = []
+    for names in sample:
+        y = []
+        y.append(str(names))
+        y.append(sample[str(names)]['distance'])
+        y.append(sample[str(names)]['rating'])
+        y.append(sample[str(names)]['price_range'])
+        y = y + sample[str(names)]['cuisinesML']
+        if hasClass:
+            y.append(sample[str(names)]['userPreference'])
+        array.append(y)
+    return array
+
 def recommend(userJsonList, predefinedList):
     predict_array = JsonToArr(userJsonList)
-    train_array = JsonToArr(predefinedList)
-    clf = neighbors.KNeighborsClassifier(n_neighbours = 3)
+    #predict_array = userJsonList
+    train_array = JsonToArr(predefinedList, True)
+    #print len(predict_array), len(train_array[0])
+    
+    clf = neighbors.KNeighborsClassifier(n_neighbours = 5)
     temp = []
     temp2 = []
     temp3 = []
@@ -16,16 +33,21 @@ def recommend(userJsonList, predefinedList):
         temp2.append(arr[-1])
         temp3.append(arr[0])
     X = temp
-    t = temp2
-    X_Train, X_test, y_train, y_test = cross_validation.train_test_split(X,y,test_size=0.2) 
+    y = temp2
+    #print y
+    #print len(X[0])
+    X_train, X_test, y_train, y_test = cross_validation.train_test_split(X,y,test_size=0.1) 
     clf.fit(X_train, y_train)
-
+    score = clf.score(X_test, y_test)
     confidence = []
-    for i in len(predict_array):
-        confidence.append((clf.predict_proba(predict_array[i]), i))
-    index = sorted(confidence)[0][1]
-    array_needed = temp3[index]
-    
-    for x in userJsonList['user']['restaurants']:
-        if array_needed == x:
-            return x #return that JSON object whose name is this
+    if not isinstance(predict_array[0], list):
+        for i in range(0,1):
+            predictVector = predict_array[1:]
+            confidence.append((clf.predict_proba(predictVector),  predict_array[0]))
+    else:
+        for i in range(0,len(predict_array)):
+            predictVector = predict_array[i][1:]
+            confidence.append((clf.predict_proba(predictVector),  predict_array[i][0]))
+            
+    return sorted(confidence)[0][1]
+    #return index #return that JSON object's index

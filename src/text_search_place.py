@@ -25,8 +25,8 @@ def get_city(lat, lng):
 			return city
 
 
-lat = '23.187181499999998'
-lng = '72.6269575'
-city = get_city(lat, lng)
-text = 'swimming in ' + city
-print get_stuff(text)
+# lat = '23.187181499999998'
+# lng = '72.6269575'
+# city = get_city(lat, lng)
+# text = 'swimming in ' + city
+# print get_stuff(text)
