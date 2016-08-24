@@ -18,7 +18,7 @@ parser.add_argument('end_time')
 
 class Root(Resource):
     def get(self):
-        return {"Welcome"  : "This is the Zaplan API", "Sample Query:" : "/timeline?latitude=12.844413099999999&longitude=80.1524191&budget=1500&radius=100000&start_time=9&end_time=22"}
+        return {"Welcome"  : "This is the Zaplan API", "Sample Query:" : "localhost/timeline?latitude=12.844413099999999&longitude=80.1524191&budget=1500&radius=100000&start_time=9&end_time=22"}
 
 class Timeline(Resource):
     def get(self):
